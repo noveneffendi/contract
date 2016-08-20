@@ -1,0 +1,13 @@
+$("#note_modal").dialog({
+  autoOpen: true,
+  height: 300,
+  width: 500,
+  modal: true,
+  title: "<%= "Note of #{@other_sales_invoice_header.si_id}" %>",
+  open: function() {
+    $("#note_modal").html("<%= escape_javascript(render('note')) %>")
+  },
+  buttons: {
+  	"<%= t 'close' %>": function() { $(this).dialog("close") }
+  },
+});

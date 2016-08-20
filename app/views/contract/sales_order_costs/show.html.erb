@@ -1,0 +1,45 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Description:</b>
+  <%= @sales_order_cost.description %>
+</p>
+
+<p>
+  <b>Unit of measure:</b>
+  <%= @sales_order_cost.unit_of_measure %>
+</p>
+
+<p>
+  <b>Quantity:</b>
+  <%= @sales_order_cost.quantity %>
+</p>
+
+<p>
+  <b>Amount:</b>
+  <%= @sales_order_cost.amount %>
+</p>
+
+<p>
+  <b>Discount item:</b>
+  <%= @sales_order_cost.discount_item %>
+</p>
+
+<p>
+  <b>Discount item price:</b>
+  <%= @sales_order_cost.discount_item_price %>
+</p>
+
+<p>
+  <b>Price:</b>
+  <%= @sales_order_cost.price %>
+</p>
+
+<p>
+  <b>Sales order header:</b>
+  <%= @sales_order_cost.sales_order_header %>
+</p>
+
+
+<%= link_to 'Edit', edit_sales_order_cost_path(@sales_order_cost) %> |
+<%= link_to 'Back', sales_order_costs_path %>

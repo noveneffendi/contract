@@ -1,0 +1,17 @@
+<h4><%= "#{t 'paid_sales_invoice'}" %></h4>
+
+<div class="accordion" id="accordion2">
+  <div class="accordion-group">
+    <div class="accordion-heading">
+      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
+        <b>FILTER</b>
+      </a>
+    </div>
+    <div id="collapseOne" class="accordion-body collapse">
+      <div class="accordion-inner"><%= render 'paid_form_filter' %></div>
+    </div>
+  </div>
+</div>
+
+<div id="paid_sales_invoices"><%= render 'paid_invoices_table' %></div>
+<div id="payment_details_modal"></div>

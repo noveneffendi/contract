@@ -1,0 +1,10 @@
+$("#detail_table").html("<%= escape_javascript(render 'table') %>");
+
+$("#si_amount_<%= @other_sales_invoice_header.id %>").html("<%= delimiter(@other_sales_invoice_header.amount) %>");
+$("#si_discount_amount_<%= @other_sales_invoice_header.id %>").html("<%= delimiter(@other_sales_invoice_header.discount_amount) %>");
+$("#other_sales_invoice_header_<%= @other_sales_invoice_header.id %>_tax").prop('checked', <%= @tax_status %>);
+$("#si_tax_amount_<%= @other_sales_invoice_header.id %>").html("<%= delimiter(@other_sales_invoice_header.tax_amount) %>");
+$("#si_total_amount_<%= @other_sales_invoice_header.id %>").html("<b>" + "<%= delimiter(@other_sales_invoice_header.total_amount) %>" + "</b>");
+$("#si_outstanding_total_amount_<%= @other_sales_invoice_header.id %>").html("<b>" + "<%= delimiter(@outstanding_total_amount) %>" + "</b>");
+
+$("#other_sales_invoice_detail_modal").dialog("close");

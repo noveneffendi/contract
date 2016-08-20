@@ -1,0 +1,33 @@
+<div class="row-fluid">
+  <div class="span3">
+    <%= link_to "#{t 'back'}", other_sales_invoice_headers_path %>
+  </div>
+  <div class="span6" align="center">
+    <h4><%= "#{t 'other_sales_invoice'} #{t 'error_import.title'}" %></h4>
+  </div>
+  <div class="span3 text-right">
+    <%=# link_to "kirim email", import_email_products_path(:title => @title)
+     %>
+  </div>
+</div>
+
+<table class="table table-condensed table-striped">
+  <tr>
+    <th><%= "#{t 'number'}" %></th>
+    <th><%= "#{t 'dates'}" %></th>
+    <th><%= "#{t 'supplier'}" %></th>
+    <th><%= "#{t 'currency'}" %></th>
+    <th><%= "#{t 'amount'}" %></th>
+    <th><%= "#{t 'description'}" %></th>
+  </tr>
+  <% @error_rows.each do |row| %>
+  <tr>
+    <td><%= row[0] %></td>
+    <td><%= row[1].strftime('%d-%m-%Y') %></td>
+    <td><%= row[2] %></td>
+    <td><%= row[3] %></td>
+    <td><%= row[4] %></td>
+    <td><%= row[5] %></td>
+  </tr>
+  <% end %>
+</table>

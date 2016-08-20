@@ -1,0 +1,41 @@
+<h1>Listing sales_invoice_materials</h1>
+
+<table>
+  <tr>
+    <th>Product</th>
+    <th>Unit of measure</th>
+    <th>Quantity</th>
+    <th>Price</th>
+    <th>Discount item</th>
+    <th>Discount item price</th>
+    <th>Amount</th>
+    <th>Outstanding qty</th>
+    <th>Sales invoice detail</th>
+    <th>Number</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @sales_invoice_materials.each do |sales_invoice_material| %>
+  <tr>
+    <td><%= sales_invoice_material.product %></td>
+    <td><%= sales_invoice_material.unit_of_measure %></td>
+    <td><%= sales_invoice_material.quantity %></td>
+    <td><%= sales_invoice_material.price %></td>
+    <td><%= sales_invoice_material.discount_item %></td>
+    <td><%= sales_invoice_material.discount_item_price %></td>
+    <td><%= sales_invoice_material.amount %></td>
+    <td><%= sales_invoice_material.outstanding_qty %></td>
+    <td><%= sales_invoice_material.sales_invoice_detail %></td>
+    <td><%= sales_invoice_material.number %></td>
+    <td><%= link_to 'Show', sales_invoice_material %></td>
+    <td><%= link_to 'Edit', edit_sales_invoice_material_path(sales_invoice_material) %></td>
+    <td><%= link_to 'Destroy', sales_invoice_material, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Sales invoice material', new_sales_invoice_material_path %>

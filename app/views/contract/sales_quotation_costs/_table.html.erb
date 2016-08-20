@@ -1,0 +1,36 @@
+<table class="table table-bordered table-condensed">
+  <tr>
+    <th><%= t 'number' %></th>
+    <th><%= t 'description' %></th>
+    <th><%= t 'unit' %></th>
+    <th class="text-right"><%= t 'quantity' %></th>
+    <th class="text-right"><%= t 'price' %></th>
+    <th class="text-right"><%= t 'disc' %></th>
+    <th class="text-right"><%= t 'disc_rp' %></th>
+    <th class="text-right"><%= t 'discount_amount' %></th>
+    <th class="text-right"><%= t 'amount' %></th>
+    <% if @sales_quotation_header.status==0 %>
+      <th width="100"></th>
+    <% end %>
+  </tr>
+<% counter=0; @sales_quotation_costs.each do |soc| %>
+  <tr>
+    <td><%= counter+=1 %></td>
+    <td><%= soc.description %></td>
+    <td><%= soc.unit_of_measure.try(:name) %></td>
+    <td class="text-right"><%= delimiter(soc.quantity.to_f) %></td>
+    <td class="text-right"><%= delimiter(soc.price.to_f) %></td>
+    <td class="text-right"><%= soc.discount_item %></td>
+    <td class="text-right"><%= delimiter(soc.discount_item_price.to_f) %></td>
+    <td class="text-right"><%= delimiter(soc.discount_amount.to_f) %></td>
+    <td class="text-right"><%= delimiter(soc.amount.to_f) %></td>
+    <% if @sales_quotation_header.status==0 || @sales_quotation_header.revision_status==1 %>
+    <td class="text-center">
+      <u><%= link_to edit_sales_quotation_header_sales_quotation_cost_path(@sales_quotation_header, soc), :remote => true, :title => "#{t 'edit'}", :class => 
+      "btn btn-mini" do %> <i class="fa fa-pencil"></i> <% end %></u>
+      <u><%= link_to sales_quotation_header_sales_quotation_cost_path(@sales_quotation_header, soc), :confirm => "#{t 'confirm'}", :method => :delete, :remote => true, :title => "#{t 'destroy'}", :class => "btn btn-mini" do %> <i class="fa fa-trash"></i> <% end %></u>
+    </td>
+    <% end %>
+  </tr>
+<% end %>
+</table>

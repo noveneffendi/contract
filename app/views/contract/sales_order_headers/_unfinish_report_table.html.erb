@@ -1,0 +1,28 @@
+<table class="table table-condensed">
+  <tr>
+    <th><%= t 'nomor' %></th>
+    <th><%= t 'so_id' %></th>
+    <th><%= t 'dates' %></th>
+    <th><%= t 'customer' %></th>
+    <th class="text-right"><%= t 'amount' %></th>
+    <th class="text-right"><%= t 'disc' %></th>
+    <th class="text-right"><%= t 'disc_rp' %></th>
+    <th class="text-center"><%= t 'tax' %></th>
+    <th class="text-right"><%= t 'amount' %></th>
+    <th class="text-right"><%= t 'total' %></th>
+  </tr>
+<% @sales_orders.each do |row| %>
+  <tr>
+    <td><%= row[0] %></td>
+    <td><%= row[1] %></td>
+    <td><%= row[2] %></td>
+    <td><%= row[3] %></td>
+    <td class="text-right"><%= row[4] %></td>
+    <td class="text-right"><%= row[5] %></td>
+    <td class="text-right"><%= row[6] %></td>
+    <td class="text-center"><%= row[7] %></td>
+    <td class="text-right"><%= row[8] %></td>
+    <td class="text-right"><%= row[9] %></td>
+  </tr>
+<% end %>
+</table>

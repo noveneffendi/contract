@@ -1,0 +1,35 @@
+<%= form_for(@sales_order_header, :url => add_discount_put_sales_order_header_path(@sales_order_header), :remote => true, :method => :put, :html => { :class => "form-horizontal" }) do |f| %>
+  <% if @sales_order_header.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@sales_order_header.errors.count, "error") %> prohibited this sales_order_header from being saved:</h2>
+
+      <ul>
+      <% @sales_order_header.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="control-group">
+    <%= f.label :discount, "#{t 'disc'}", :class => "control-label" %>
+    <div class="controls"><%= f.text_field :discount %></div>
+  </div>
+  <div class="control-group">
+    <%= f.label :discount_amount, "#{t 'disc_rp'}", :class => "control-label" %>
+    <div class="controls"><%= f.text_field :discount_amount %></div>
+  </div>
+  <div class="control-group">
+    <%= f.label :cash_disc, "#{t 'cash_disc'}", :class => "control-label" %>
+    <div class="controls"><%= f.text_field :cash_disc %></div>
+  </div>
+  <div class="control-group">
+    <%= f.label :tax, "#{t 'tax'}", :class => "control-label" %>
+    <div class="controls"><%= f.check_box :tax, {:disabled => false}, true, false %></div>
+    <%= hidden_field_tag :tt, params[:tt].to_s %>
+    <td></td>
+  </div>
+  <div class="control-group">
+    <div class="controls"><%= f.submit "#{t 'submit'}", :class => "btn" %></div>
+  </div>
+<% end %>

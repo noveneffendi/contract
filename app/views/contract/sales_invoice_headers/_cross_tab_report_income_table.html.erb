@@ -1,0 +1,13 @@
+<% (1..@months).each do |i| %>
+  <table class="table table-condensed table-bordered">
+    <% (instance_variable_get "@month#{i}").each do |row| %>
+    <tr>
+      <% (0..row.length-1).each do |i| %>
+      <td>
+        <%= row[i] %>
+      </td>
+      <% end %>
+    </tr>
+    <% end %>
+  </table>
+<% end %>

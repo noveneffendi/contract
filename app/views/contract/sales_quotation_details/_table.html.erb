@@ -1,0 +1,31 @@
+<table class="table table-bordered table-condensed">
+  <% @sales_quotation_categories.each do |soc| %>
+  <tr>
+    <th><%= t 'category' %></th>
+    <th colspan="4"><%= soc.category %></th>
+  </tr>
+  <tr>
+    <th><%= t 'number' %></th>
+    <th class="span4"><%= t 'description' %></th>
+    <th><%= t 'unit' %></th>
+    <th><%= t 'quantity' %></th>
+    <th class="span2"></th>
+  </tr>
+
+  <% @sales_quotation_details.where("category = ?", soc.category).each do |sales_quotation_detail| %>
+    <tr>
+      <td><%= sales_quotation_detail.number %></td>
+      <td><%= sales_quotation_detail.description %></td>
+      <td><%= sales_quotation_detail.unit_of_measure.try(:name) %></td>
+      <td class="text-right"><%= delimiter sales_quotation_detail.quantity %></td>
+      <td><%= link_to show_materials_sales_quotation_header_sales_quotation_detail_path(@sales_quotation_header, sales_quotation_detail), :remote => true, :title => "#{t 'material'}", :class => "btn btn-mini" do %> <i class="fa fa-cog"></i> <% end %> 
+        <% if @sales_quotation_header.status==0 || @sales_quotation_header.revision_status==1 %>
+        <%= link_to edit_sales_quotation_header_sales_quotation_detail_path(@sales_quotation_header, sales_quotation_detail), :remote => true, :title => "#{t 'edit'}", :class => "btn btn-mini" do %> <i class="fa fa-pencil"></i> <% end %> 
+        <%= link_to sales_quotation_header_sales_quotation_detail_path(@sales_quotation_header, sales_quotation_detail), method: :delete, data: { confirm: "#{t 'confirm'}" }, :remote => true, :title => "#{t 'destroy'}", :class => "btn btn-mini" do %> <i class="fa fa-trash"></i> <% end %> 
+        <%= link_to new_sales_quotation_header_sales_quotation_detail_sales_quotation_material_path(@sales_quotation_header, sales_quotation_detail), :remote => true, :title => "#{t 'new'}", :class => "btn btn-mini" do %> <i class="fa fa-plus"></i> <% end %>
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
+<% end %>
+</table>

@@ -1,0 +1,55 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Product:</b>
+  <%= @sales_invoice_material.product %>
+</p>
+
+<p>
+  <b>Unit of measure:</b>
+  <%= @sales_invoice_material.unit_of_measure %>
+</p>
+
+<p>
+  <b>Quantity:</b>
+  <%= @sales_invoice_material.quantity %>
+</p>
+
+<p>
+  <b>Price:</b>
+  <%= @sales_invoice_material.price %>
+</p>
+
+<p>
+  <b>Discount item:</b>
+  <%= @sales_invoice_material.discount_item %>
+</p>
+
+<p>
+  <b>Discount item price:</b>
+  <%= @sales_invoice_material.discount_item_price %>
+</p>
+
+<p>
+  <b>Amount:</b>
+  <%= @sales_invoice_material.amount %>
+</p>
+
+<p>
+  <b>Outstanding qty:</b>
+  <%= @sales_invoice_material.outstanding_qty %>
+</p>
+
+<p>
+  <b>Sales invoice detail:</b>
+  <%= @sales_invoice_material.sales_invoice_detail %>
+</p>
+
+<p>
+  <b>Number:</b>
+  <%= @sales_invoice_material.number %>
+</p>
+
+
+<%= link_to 'Edit', edit_sales_invoice_material_path(@sales_invoice_material) %> |
+<%= link_to 'Back', sales_invoice_materials_path %>

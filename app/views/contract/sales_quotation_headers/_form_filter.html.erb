@@ -1,0 +1,40 @@
+<%= form_tag sales_quotation_headers_path(:tt => params[:tt].to_s), :method => "get", :id => "sales_quotation_headers_search", :class => "form-inline", :remote => true do %>
+
+  <table>
+    <tr>
+      <td class="span1"><%= t 'period' %></td>
+      <td width="500"><%= select_date(Date.today, :order => [:month, :year]) %></td>
+      <td class="span2"><%= t 'customer' %></td>
+      <td><%= select_tag "customer", options_from_collection_for_select(@customers, "id", "name"), :prompt => "#{t 'all'} #{t 'customer'}", :id => "f_customer", :style => "width:200px" %>
+      </td>
+      <td class="span2 text-center"><%= button_tag "#{t 'find'}", :name => nil, :class => "btn btn-info" do %><i class="icon-filter icon-white"></i><%= "#{t 'find'}" %><% end %></td>
+    </tr>
+    <tr>
+      <td><%= t 'amount' %></td>
+      <td>
+        <%= text_field_tag "start_amount", nil, :placeholder => "#{t 'start_amount'}", :style => "width:198px" %>
+        -
+        <%= text_field_tag "end_amount", nil, :placeholder => "#{t 'end_amount'}" %>
+      </td>
+      <td><%= t 'status' %> | <%= "#{t 'currency'}" %></td>
+      <td><%= select_tag "status", "<option selected='selected' value=''>#{t 'all'}</option><option value='0'>#{t 'filter.new'}</option><option value='1'>#{t 'filter.posted'}</option><option value='4'>#{t 'filter.waiting_approval'}</option><option value='5'>#{t 'filter.void'}</option>".html_safe, :id => "f_status", :style => "width:120px" %>
+        <%= select_tag "currency", options_from_collection_for_select(Currency.order(:is_default), "id", "code"), :prompt => "#{t 'all'}", :id => "f_currency", :style => "width:75px" %>
+      </td>
+      <td class="text-center"><%= link_to sales_quotation_headers_path, :class => "btn btn-primary", :title => "#{t 'reset'}" do %> <i class="icon-repeat icon-white"></i> <%= "#{t 'reset'}" %><% end %></td>
+    </tr>
+    <tr>
+      <td><%= "#{t 'product'}" %></td>
+      <td><%= text_field_tag 'p', params[:p], :placeholder => "#{t 'product'}", :class => "span5" %></td>
+      <td><%= t 'sales_person' %></td>
+      <td><%= select_tag "sales", options_from_collection_for_select(@sales, "id", "full_name"), :prompt => "#{t 'all'}", :style => "width:200px" %></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><%= "#{t 'description'}" %></td>
+      <td><%= text_field_tag 'd', params[:d], :placeholder => "#{t 'description'}", :class => "span5" %></td>
+      <td></td>
+      <td></td>
+    </tr>
+  </table>
+
+<% end %>
