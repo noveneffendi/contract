@@ -7,11 +7,11 @@ require "contract/version"
 Gem::Specification.new do |s|
   s.name        = "contract"
   s.version     = Contract::VERSION
-  s.authors     = ["TODO: Your name"]
-  s.email       = ["TODO: Your email"]
-  s.homepage    = "TODO"
-  s.summary     = "TODO: Summary of Contract."
-  s.description = "TODO: Description of Contract."
+  s.authors     = "Noven Effendi"
+  s.email       = "noveneffendi@gmail.com"
+  s.homepage    = "www.spidersmartsystem.com"
+  s.summary     = "Sales quotation module and Sales invoice module"
+  s.description = "Engine for add Sales Quotation module."
 
   s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc"]
   s.test_files = Dir["test/**/*"]
