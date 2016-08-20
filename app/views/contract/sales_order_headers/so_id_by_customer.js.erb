@@ -1,0 +1,13 @@
+$("select[id*='so_id']").empty();
+$("select[id*='so_id']").append($("<option></option>").attr("value","").text("<%= t 'prompt' %> <%= t 'so_id' %>"));
+<% for so_id in @so_ids %>
+$("select[id*='so_id']").append($("<option></option>").attr("value","<%= so_id.so_id %>").text('<%= so_id.so_id + ' | ' + so_id.sales_order_date.strftime("%d-%m-%Y") %>'));
+<% end %>
+
+$("#sales_invoice_header_delivery_address").val("<%= @cust_delivery_address %>");
+var due_date = new Date($("#datepicker2").datepicker('getDate'));
+	//due_date = $("#datepicker2").datepicker('getDate');
+	due_date.setDate(due_date.getDate() + <%= @payment_limit %>);
+$("#datepicker1").datepicker('setDate', due_date);
+// $("#datepicker1").val(('0' +(due_date.getDate())).slice(-2)+'-'+('0' + (due_date.getMonth()+1)).slice(-2)+'-'+due_date.getFullYear());
+$("#sales_invoice_header_sales_id").val('<%= @sales_id %>')

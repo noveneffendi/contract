@@ -1,0 +1,110 @@
+<%= form_for(@sales_quotation_header, :html => { :class => "form-horizontal" }) do |f| %>
+  <% if @sales_quotation_header.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@sales_quotation_header.errors.count, "error") %> prohibited this sales_quotation_header from being saved:</h2>
+
+      <ul>
+      <% @sales_quotation_header.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+  <div class="row">
+    <div class="span5">
+      <div class="actions", align="left">
+        <%= f.submit "#{t 'submit'}", :class => "btn" %>
+      </div>
+    </div>
+    <div class="span7" align="right"><u>
+      <%= link_to "#{t 'back'}", sales_quotation_headers_path(params.except(:action, :controller, :id)) %>
+    </u></div>
+  </div>
+  <br>
+  
+  <div class="row">
+    <div class="span5">
+      <div class="row">
+        <div class="control-group">
+          <%= f.label :sq_id, "#{t 'sq_id'}", :class => "control-label" %>
+          <% if @sales_quotation_header.sq_id.blank? %>
+          <div class="controls"><%= text_field_tag "sq_id", nil, :readonly => true, :placeholder => "#{t 'auto_placeholder'}", :class => "span2" %>
+          <% else %>
+          <div class="controls"><%= f.text_field :sq_id, :readonly => true, :class => "span2" %>
+          <% end %>
+          <%= f.text_field :rev_number, :readonly => true, :class => "span1" %></div>
+        </div>
+      </div>
+    </div>
+    <div class="span7">
+      <div class="row">
+        <div class="control-group">
+          <%= label_tag :sales_quotation_date, "#{t 'dates'}", :class => "control-label" %>
+           <div class="controls"><%= f.text_field :sales_quotation_date, :value => (f.object.sales_quotation_date.strftime('%d-%m-%Y') if f.object.sales_quotation_date), :readonly => @readonly, :id => "datepicker2", :required => true, :disabled => @readonly %></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="span5">
+      <div class="row">
+        <div class="control-group">
+          <%= f.label :customer, "#{t 'customer'}", :class => "control-label" %>
+          <div class="controls"><%= f.select(:customer_id, Customer.order(:name).collect {|customer| [customer.name, customer.id,]}, {:prompt => "#{t 'prompt'} #{t 'customer'}"}) %>
+          <% if @sales_quotation_header.customer_id.present? %>
+            <span style="color:red">(<%= t 'major_update_info' %>)</span>
+          <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="span7">
+      <div class="row">
+        <div class="control-group">
+          <%= label_tag :contact_person, "#{t 'contact_person'}", :class => "control-label" %>
+          <div class="controls"><%= f.text_field :contact_person, :placeholder => "#{t 'cp_placeholder'}" %></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="span5">
+      <div class="row">
+        <div class="control-group">
+          <%= f.label :sales_id, "#{t 'sales_person'}", :class => "control-label" %>
+          <div class="controls"><%= f.select(:sales_id, User.active.sales.order(:first_name).collect {|sales| ["#{sales.first_name} "+"#{sales.last_name}", sales.id,]}, {:prompt => "#{t 'prompt'} #{t 'sales_person'}"}) %></div>
+        </div>
+      </div>
+    </div>
+    <div class="span7">
+      <div class="row">
+        <div class="control-group">
+          <%= f.label :currency_id, "#{t 'currency'}", :class => "control-label" %>
+          <div class="controls"><%= f.select(:currency_id, @currencies.collect {|curr| ["#{curr.code}", curr.id]}, {}, :class => 'span1') %> <%= f.text_field :exchrate, :style => "text-align:right;width:130px", :readonly => true %></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="span5">
+      <div class="row">
+        <div class="control-group">
+          <%= f.label :notes, "#{t 'notes'}", :class => "control-label" %>
+          <div class="controls"><%= f.text_area :notes, :rows => "5" %></div>
+        </div>
+      </div>
+    </div>
+    <div class="span5">
+      <div class="row">
+        <div class="control-group">
+          <%= f.label :employee_name, "#{t 'employee'}", :class => "control-label" %>
+          <div class="controls"><%= f.text_field :employee_name, :readonly => true %></div>
+          <%= hidden_field_tag :tt, params[:tt] %></div>
+      </div>
+    </div>
+  </div>
+<% end %>

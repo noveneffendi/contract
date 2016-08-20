@@ -1,0 +1,57 @@
+<%= form_for(@sales_order_material) do |f| %>
+  <% if @sales_order_material.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@sales_order_material.errors.count, "error") %> prohibited this sales_order_material from being saved:</h2>
+
+      <ul>
+      <% @sales_order_material.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :product %><br />
+    <%= f.text_field :product %>
+  </div>
+  <div class="field">
+    <%= f.label :unit_of_measure %><br />
+    <%= f.text_field :unit_of_measure %>
+  </div>
+  <div class="field">
+    <%= f.label :quantity %><br />
+    <%= f.text_field :quantity %>
+  </div>
+  <div class="field">
+    <%= f.label :price %><br />
+    <%= f.text_field :price %>
+  </div>
+  <div class="field">
+    <%= f.label :discount_item %><br />
+    <%= f.text_field :discount_item %>
+  </div>
+  <div class="field">
+    <%= f.label :discount_item_price %><br />
+    <%= f.text_field :discount_item_price %>
+  </div>
+  <div class="field">
+    <%= f.label :amount %><br />
+    <%= f.text_field :amount %>
+  </div>
+  <div class="field">
+    <%= f.label :outstanding_qty %><br />
+    <%= f.text_field :outstanding_qty %>
+  </div>
+  <div class="field">
+    <%= f.label :sales_order_detail %><br />
+    <%= f.text_field :sales_order_detail %>
+  </div>
+  <div class="field">
+    <%= f.label :number %><br />
+    <%= f.number_field :number %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

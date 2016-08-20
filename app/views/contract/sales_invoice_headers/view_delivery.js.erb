@@ -1,0 +1,10 @@
+$("#note_modal").dialog({
+  autoOpen: true,
+  height: 350,
+  width: 600,
+  modal: true,
+  title: "<%= t 'delivery_information' %>: <%= @sales_invoice_header.si_id %>",
+  open: function() {
+    $(this).html("<%= escape_javascript(render :partial => 'view_delivery') %>")
+  },
+});

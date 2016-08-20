@@ -1,0 +1,68 @@
+<%= form_for([@sales_quotation_header, @sales_quotation_cost], :html => { :class => "form-horizontal" }, :remote => true) do |f| %>
+  <% if @sales_quotation_cost.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@sales_quotation_cost.errors.count, "error") %> prohibited this sales_quotation_cost from being saved:</h2>
+
+      <ul>
+      <% @sales_quotation_cost.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="control-group">
+    <%= f.label :description, "#{t 'description'}", :class => "control-label" %>
+    <div class="controls">
+      <%= f.text_field :description %>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <%= f.label :unit_of_measure, "#{t 'unit'}", :class => "control-label" %>
+    <div class="controls">
+      <%= f.select :unit_of_measure_id, @uoms.collect {|uom| [uom.name, uom.id,]}, {:prompt => "#{t 'prompt'} #{t 'unit_of_measure'}"}, :required => true, :id => "detail_uom_conv" %>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <%= f.label :quantity, "#{t 'quantity'}", :class => "control-label" %>
+    <div class="controls">
+      <%= f.text_field :quantity, :required => true, :class => "text-right" %>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <%= f.label :price, "#{t 'price'}", :class => "control-label" %>
+    <div class="controls">
+      <%= f.text_field :price, :readonly => false, :style => "text-align:right" %>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <%= f.label :discount_item, "#{t 'disc'}", :class => "control-label" %>
+    <div class="controls">
+      <% if @sales_quotation_cost.discount_item.present? %>
+        <%= f.text_field :discount_item, :readonly => false, :style => "text-align:right" %>
+      <% else %>
+        <%= f.text_field :discount_item, :readonly => false, :value => 0, :style => "text-align:right" %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <%= f.label :discount_item_price, "#{t 'disc_rp'}", :class => "control-label" %>
+    <div class="controls">
+      <% if @sales_quotation_cost.discount_item_price.present? %>
+        <%= f.text_field :discount_item_price, :style => "text-align:right" %>
+      <% else %>
+        <%= f.text_field :discount_item_price, :value => 0, :style => "text-align:right" %>
+      <% end %>
+    </div>
+    <%= hidden_field_tag "cuid", @sales_quotation_header.currency_id %>
+  </div>
+  
+  <div class="actions", align="right">
+    <%= f.submit "#{t 'submit'}", :class => "btn" %>
+  </div>
+<% end %>

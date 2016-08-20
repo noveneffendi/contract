@@ -1,0 +1,55 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Product:</b>
+  <%= @sales_order_material.product %>
+</p>
+
+<p>
+  <b>Unit of measure:</b>
+  <%= @sales_order_material.unit_of_measure %>
+</p>
+
+<p>
+  <b>Quantity:</b>
+  <%= @sales_order_material.quantity %>
+</p>
+
+<p>
+  <b>Price:</b>
+  <%= @sales_order_material.price %>
+</p>
+
+<p>
+  <b>Discount item:</b>
+  <%= @sales_order_material.discount_item %>
+</p>
+
+<p>
+  <b>Discount item price:</b>
+  <%= @sales_order_material.discount_item_price %>
+</p>
+
+<p>
+  <b>Amount:</b>
+  <%= @sales_order_material.amount %>
+</p>
+
+<p>
+  <b>Outstanding qty:</b>
+  <%= @sales_order_material.outstanding_qty %>
+</p>
+
+<p>
+  <b>Sales order detail:</b>
+  <%= @sales_order_material.sales_order_detail %>
+</p>
+
+<p>
+  <b>Number:</b>
+  <%= @sales_order_material.number %>
+</p>
+
+
+<%= link_to 'Edit', edit_sales_order_material_path(@sales_order_material) %> |
+<%= link_to 'Back', sales_order_materials_path %>

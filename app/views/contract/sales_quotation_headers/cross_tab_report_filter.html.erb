@@ -1,0 +1,54 @@
+<div class="row-fluid">
+  <div class="span2"></div>
+  
+  <div class="span8">
+    <h4 align="center"><%= t 'report' %> - <%= t 'sales_quotation' %> (Cross Tab)</h4>
+  </div>
+
+  <div class="span2" align="right">
+    <%= button_tag :id => "sales_quotation_cross_tab_pdf", :class => "btn btn-info" do %><%= t 'pdf' %><% end %>
+  </div>
+</div>
+
+<div class="row-fluid">
+  <div class="span12">
+    <%= form_tag(cross_tab_report_filter_sales_quotation_headers_path, :method => "get", :class => "form-inline") do %>
+      <div class="row">
+        <div class="span5">
+          <%= label_tag :period, "#{t 'period'}" %>
+
+          <% if params[:start_period].present? %>
+            <%= text_field_tag :start_period, "", :id => "datepicker", :value => params[:start_period].to_date.strftime("%d-%m-%Y"), :style => "width:100px" %>&nbsp;s.d.&nbsp;
+          <% else %>
+            <%= text_field_tag :start_period, "", :id => "datepicker", :value => Date.today.strftime("%d-%m-%Y"), :style => "width:100px" %>&nbsp;s.d.&nbsp;
+          <% end %>
+
+          <% if params[:end_period].present? %>
+            <%= text_field_tag :end_period, "", :id => "datepicker2", :value => params[:end_period].to_date.strftime("%d-%m-%Y"), :style => "width:100px" %>
+          <% else %>
+            <%= text_field_tag :end_period, "", :id => "datepicker2", :value => Date.today.strftime("%d-%m-%Y"), :style => "width:100px" %>
+          <% end %>
+        </div>
+        
+        <div class="span4">
+            <%= label_tag :warehouse, "#{t 'warehouse'}" %>
+
+            <% @warehouses = Warehouse.order(:name) %>
+            <% if params[:warehouse].present? %>
+              <%= select_tag "warehouse", options_for_select(@warehouses.collect{|s| [s.name, s.id]}, :selected => params[:warehouse]), {:prompt => "#{t 'all'}", :style => "width:200px"} %>
+            <% else %>
+              <%= select_tag "warehouse", options_for_select(@warehouses.collect{|s| [s.name, s.id]}), {:prompt => "#{t 'all'}", :style => "width:200px"} %>
+            <% end %>
+        </div>
+
+        <div class="span3" align="right">
+          <%= submit_tag "#{t 'ep.submit'}", :name => nil, :class => "btn btn-warning", :remote => true %>
+          <%= submit_tag "#{t 'excel'}", :name => "excel", :class => "btn btn-success" %>
+        </div>
+      </div>
+    <% end %>
+    <hr>
+  </div>
+</div>
+
+<div id="headers_pagination"><%= render 'cross_tab_report_table' %></div>

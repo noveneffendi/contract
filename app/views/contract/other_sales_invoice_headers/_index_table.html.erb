@@ -1,0 +1,90 @@
+<%= will_paginate @other_sales_invoice_headers, :class => "apple_pagination" %>
+
+<table class="table table-hover table-condensed">
+  <tr>
+    <thead>
+    <th></th>
+    <th class="span2"><%= t 'id' %></th>
+    <th><%= t 'dates' %></th>
+    <th><%= t 'due_date' %></th>
+    <th><%= t 'customer' %></th>
+    <th><%= t 'currency' %></th>
+    <th><%= t 'tax' %></th>
+    <th><%= t 'total' %></th>
+    <th><%= t 'employee' %></th>
+    <th width="100"></th>
+    <th width="150"></th>
+    <th></th>
+    </thead>
+  </tr>
+<% @other_sales_invoice_headers.each do |other_sales_invoice_header| %>
+  <tr>
+    <td class="status_<%= "#{other_sales_invoice_header.status}" %>"></td>
+    <td><%= other_sales_invoice_header.si_id %></td>
+    <td><%= other_sales_invoice_header.sales_invoice_date.strftime("%d-%m-%Y") %></td>
+    <td><%= other_sales_invoice_header.due_date.try(:strftime, "%d-%m-%Y") %></td>
+    <td><%= other_sales_invoice_header.customer.try(:name) %></td>
+    <td><%= other_sales_invoice_header.currency.try(:code) %></td>
+    <td><%= check_box('other_sales_invoice_header', 'tax', options = {:index => other_sales_invoice_header.id, :checked => other_sales_invoice_header.tax, :disabled => true}, checked_value = "1", unchecked_value = "0") %></td>
+    <td class="text-right"><%= delimiter(other_sales_invoice_header.total_amount) %></td>
+    <td><%= other_sales_invoice_header.employee_name %></td>
+    <td class="text-right">
+        <% if @split_tax_and_non_tax_transaction == 1 %>
+        <%= link_to view_note_other_sales_invoice_header_path(other_sales_invoice_header, :tt => params[:tt].to_s), :remote => true, :title => "#{t 'notes'}", :class => "btn btn-mini btn-primary" do %> <i class="icon-tag icon-white"></i><% end %>
+        <% else %>
+        <%= link_to view_note_other_sales_invoice_header_path(other_sales_invoice_header), :remote => true, :title => "#{t 'notes'}", :class => "btn btn-mini btn-primary" do %> <i class="icon-tag icon-white"></i><% end %>
+        <% end %>
+    </td>
+    <td class="text-center">
+      <% if other_sales_invoice_header.status==1 %>
+        <% if @split_tax_and_non_tax_transaction == 1 %>
+        <%= link_to other_sales_invoice_header_path(other_sales_invoice_header, :tt => params[:tt].to_s, :title => "#{t 'show'}", :class => "btn btn-mini") do %> <i class="icon-search"></i><% end %>
+         | 
+        <%= link_to status_void_other_sales_invoice_header_path(other_sales_invoice_header.id, :tt => params[:tt].to_s), data: { confirm: "#{t 'confirm'}" }, :title => "#{t 'void'}", :class => "btn btn-mini btn-danger" do %> <i class="icon-remove icon-white"></i><% end %>
+        <% else %>
+        <%= link_to other_sales_invoice_header_path(other_sales_invoice_header), :title => "#{t 'show'}", :class => "btn btn-mini" do %> <i class="icon-search"></i><% end %>
+         | 
+        <%= link_to status_void_other_sales_invoice_header_path(other_sales_invoice_header.id), data: { confirm: "#{t 'confirm'}" }, :title => "#{t 'void'}", :class => "btn btn-mini btn-danger" do %> <i class="icon-remove icon-white"></i><% end %>
+        <% end %>
+        <% if @can_revise == true %>
+         |
+          <% if @split_tax_and_non_tax_transaction == 1 %>
+          <%= link_to revise_other_sales_invoice_header_path(other_sales_invoice_header, :tt => params[:tt]), data: { confirm: "#{t 'confirm'}" }, :title => "#{t 'revision'}", :class => "btn btn-mini btn-warning" do %> <i class="icon-edit icon-white"></i><% end %>
+          <% else %>
+          <%= link_to revise_other_sales_invoice_header_path(other_sales_invoice_header), data: { confirm: "#{t 'confirm'}" }, :title => "#{t 'revision'}", :class => "btn btn-mini btn-warning" do %> <i class="icon-edit icon-white"></i><% end %>
+          <% end %>
+        <% end %>
+        <% if @can_print == true %>
+         |
+          <% if @split_tax_and_non_tax_transaction == 1 %>
+            <%= link_to other_sales_invoice_header_path(other_sales_invoice_header.id, :tt => params[:tt].to_s, :format => "pdf"), :title => "#{t 'pdf'}", :class => "btn btn-mini btn-info" do %> <i class="icon-print icon-white"></i><% end %>
+          <% else %>
+            <%= link_to other_sales_invoice_header_path(other_sales_invoice_header.id, :format => "pdf"), :title => "#{t 'pdf'}", :class => "btn btn-mini btn-info" do %> <i class="icon-print icon-white"></i><% end %>
+          <% end %>
+        <% end %>
+      <% elsif other_sales_invoice_header.status==5 %>
+        <% if @split_tax_and_non_tax_transaction == 1 %>
+          <%= link_to show_post_void_other_sales_invoice_header_path(other_sales_invoice_header, :tt => params[:tt].to_s), :title => "#{t 'show'}", :class => "btn btn-mini" do %> <i class="icon-search"></i><% end %>
+        <% else %>
+          <%= link_to show_post_void_other_sales_invoice_header_path(other_sales_invoice_header), :title => "#{t 'show'}", :class => "btn btn-mini" do %> <i class="icon-search"></i><% end %>
+        <% end %>
+      <% else %>
+        <% if @split_tax_and_non_tax_transaction == 1 %>
+          <%= link_to other_sales_invoice_header_path(other_sales_invoice_header, :tt => params[:tt].to_s), :title => "#{t 'add'}", :class => "btn btn-mini" do %> <i class="icon-list"></i><% end %>
+         | 
+          <%= link_to edit_other_sales_invoice_header_path(other_sales_invoice_header, :tt => params[:tt].to_s), :title => "#{t 'edit'}", :class => "btn btn-mini" do %> <i class="icon-list"></i><% end %>
+        <% else %>
+          <%= link_to other_sales_invoice_header, :title => "#{t 'add'}", :class => "btn btn-mini" do %> <i class="icon-list"></i><% end %>
+         | 
+          <%= link_to edit_other_sales_invoice_header_path(other_sales_invoice_header), :title => "#{t 'edit'}", :class => "btn btn-mini" do %> <i class="icon-pencil"></i><% end %>
+        <% end %>
+      <% end %>
+    </td>
+    <td class="status_<%= "#{other_sales_invoice_header.status}" %>"></td>
+  </tr>
+<% end %>
+</table>
+  
+<%= will_paginate @other_sales_invoice_headers, :class => "apple_pagination" %>
+
+<div id="note_modal"></div>

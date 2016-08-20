@@ -1,0 +1,66 @@
+<%= will_paginate @sales_invoice_headers, :class => "apple_pagination" %>
+
+<table class="table table-condensed">
+  <thead>
+  <tr>
+    <th></th>
+    <th class="span2"><%= t 'id' %></th>
+    <th><%= t 'dates' %></th>
+    <th class="span2"><%= t 'so_id' %></th>
+    <th class="span2"><%= t 'do_id' %></th>
+    <th><%= t 'customer' %></th>
+    <th><%= t 'tax' %></th>
+    <th><%= t 'currency' %></th>
+    <th><%= t 'total' %></th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+  </thead>
+<% @sales_invoice_headers.each do |sales_invoice_header| %>
+  <tr>
+    <td class="status_<%= "#{sales_invoice_header.status}" %>"></td>
+    <td><%= sales_invoice_header.try(:si_id) %></td>
+    <td><%= date_without_localtime(sales_invoice_header.sales_invoice_date) %></td>
+    <td><%= link_to sales_invoice_header.so_id, show_post_void_sales_order_header_path(sales_invoice_header.try(:so_trans_id), :tt => params[:tt]), :target=> "blank" if sales_invoice_header.so_id.present? %></td>
+    <td><%= link_to sales_invoice_header.do_id, show_post_void_delivery_order_header_path(sales_invoice_header.try(:do_trans_id), :tt => params[:tt]), :target => "blank" if sales_invoice_header.do_id.present? %></td>
+    <td><%= sales_invoice_header.customer.try(:name) %></td>
+    <td><%= check_box('sales_invoice_header', 'tax', options = {:index => sales_invoice_header.id, :checked => sales_invoice_header.tax, :disabled => true}, checked_value = "1", unchecked_value = "0") %></td>
+    <td><%= sales_invoice_header.currency.try(:code) %></td>
+    <td class="text-right"><%= delimiter(sales_invoice_header.total_amount) %></td>
+    <td class="text-right">
+        <%= link_to view_delivery_sales_invoice_header_path(sales_invoice_header, :tt => params[:tt]), :remote => true, :title => "#{t 'delivery_information'}", :class => "btn btn-mini btn-primary" do %><i class="icon-road icon-white"></i><% end %>
+      |
+        <%= link_to view_note_sales_invoice_header_path(sales_invoice_header, :tt => params[:tt]), :remote => true, :title => "#{t 'notes'}", :class => "btn btn-mini btn-primary" do %><i class="icon-tag icon-white"></i><% end %>
+    </td>
+    <td class="text-center">
+      <% if sales_invoice_header.status==1 %>
+        <%= link_to show_post_void_sales_invoice_header_path(sales_invoice_header, params.except(:action, :controller)), :title => "#{t 'show'}", :class => "btn btn-mini" do %><i class="icon-search"></i><% end %>
+        | 
+        <%= link_to status_void_sales_invoice_header_path(sales_invoice_header.id, :tt => params[:tt]), data: { confirm: "#{t 'confirm'}" }, :title => "#{t 'void'}", :class => "btn btn-mini btn-danger" do %><i class="icon-remove icon-white"></i><% end %>
+        |
+        <% if sales_invoice_header.close==false && @can_revise == true %>
+          <%= link_to revise_sales_invoice_header_path(sales_invoice_header, params.except(:action, :controller)), data: { confirm: "#{t 'confirm'}" }, :class => "btn btn-mini btn-warning", :title => "#{t 'revision'}" do %><i class="icon-edit icon-white"></i><% end %> |
+        <% end %>
+          <% if @can_print_do == true %>
+        <%= link_to delivery_order_header_path(@delivery_order_header.id, :format => "pdf"), :title => "#{t 'pdf_do'}", :class => "btn btn-mini btn-info" do %><i class="icon-print icon-white"></i>&nbsp;|&nbsp;<% end %>
+          <% end %>
+          <% if @can_print == true %>
+        <%= link_to sales_invoice_header_path(sales_invoice_header.id, :format => "pdf"), :class => "btn btn-mini btn-info", :title => "#{t 'pdf'}" do %><i class="icon-print icon-white"></i><% end %>
+          <% end %>
+      <% elsif sales_invoice_header.status==5 %>
+        <%= link_to show_post_void_sales_invoice_header_path(sales_invoice_header, params.except(:action, :controller)), :title => "#{t 'show'}", :class => "btn btn-mini btn-info" do %><i class="icon-search"></i><% end %>
+      <% else %>
+        <%= link_to sales_invoice_header_path(sales_invoice_header, params.except(:action, :controller)), :title => "#{t 'add'}", :class => "btn btn-mini" do %><i class="icon-list"></i><% end %>
+         | 
+        <%= link_to edit_sales_invoice_header_path(sales_invoice_header, params.except(:action, :controller)), :title => "#{t 'edit'}", :class => "btn btn-mini" do %><i class="icon-pencil"></i><% end %>
+      <% end %>
+    </td>
+    <td class="status_<%= "#{sales_invoice_header.status}" %>"></td>
+  </tr>
+<% end %>
+</table>
+  
+<%= will_paginate @sales_invoice_headers, :class => "apple_pagination" %>
+
+<div id="note_modal"></div>

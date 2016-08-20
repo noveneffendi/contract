@@ -1,0 +1,5 @@
+$("select[id*='si_id']").empty();
+$("select[id*='si_id']").append($("<option></option>").attr("value","").text("<%= t 'prompt' %> <%= t 'si_id' %>"));
+<% for si_id in @si_ids %>
+$("select[id*='si_id']").append($("<option></option>").attr("value","<%= si_id.si_id %>").text('<%= si_id.si_id %>'));
+<% end %>

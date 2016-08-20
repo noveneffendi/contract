@@ -1,0 +1,38 @@
+<%= form_tag sales_invoice_headers_path(:tt => params[:tt].to_s), :method => "get", :id => "sales_invoice_headers_search", :class => "form-inline", :remote => true do %>
+  <table>
+    <tr>
+      <td class="span2"><%= t 'period' %></td>
+      <td width="500"><%= select_date(Date.today, :order => [:month, :year]) %></td>
+      <td><%= t 'so_id' %></td>
+      <td><%= select_tag "so_id", options_from_collection_for_select(@so_ids, "so_id", "so_id"), :prompt => "#{t 'all'}", :id => "f_so_id" %></td>
+      <td class="span2 text-center"><%= button_tag :type => :submit, :title => "#{t 'find'}", :class => "btn btn-info" do %> <i class="icon-filter icon-white"></i><%= "#{t 'find'}" %><% end %></td>
+    </tr>
+    <tr>
+      <td><%= t 'customer' %> | <%= "#{t 'currency'}" %></td>
+      <td><%= select_tag "customer", options_from_collection_for_select(@customers, "id", "name"), :prompt => "#{t 'all'} #{t 'customer'}", :id => "f_customer" %>
+      <%= select_tag "currency", options_from_collection_for_select(Currency.order(:is_default), "id", "code"), :prompt => "#{t 'all'} #{t 'currency'}", :id => "f_currency" %>
+      </td>
+      <td><%= t 'do_id' %></td>
+      <td><%= select_tag "do_id", options_from_collection_for_select(@do_ids, "do_id", "do_id"), :prompt => "#{t 'all'}", :id => "f_do_id" %></td>
+      <td class="text-center"><%= link_to sales_invoice_headers_path, :title => "#{t 'reset'}", :class => "btn btn-primary" do %> <i class="icon-repeat icon-white"></i><%= "#{t 'reset'}" %><% end %></td>
+    </tr>
+    <tr>
+    	<td><%= t 'amount' %></td>
+    	<td>
+        <%= text_field_tag "start_amount", nil, :placeholder => "#{t 'start_amount'}", :style => "width:198px" %>
+        -
+        <%= text_field_tag "end_amount", nil, :placeholder => "#{t 'end_amount'}" %>
+      </td>
+    	<td><%= t 'status' %></td>
+    	<td><%= select_tag "status", "<option selected='selected' value=''>#{t 'all'}</option><option value='0'>#{t 'filter.new'}</option><option value='1'>#{t 'filter.posted'}</option><option value='5'>#{t 'filter.void'}</option>".html_safe, :id => "f_status" %></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><%= "#{t 'description'}" %></td>
+      <td><%= text_field_tag 'd', params[:d], :placeholder => "#{t 'description'}", :class => "span5" %></td>
+      <td><%= t 'sales_person' %></td>
+      <td><%= select_tag "sales", options_from_collection_for_select(@sales, "id", "full_name"), :prompt => "#{t 'all'}" %></td>
+    </tr>
+  </table>
+
+<% end %>

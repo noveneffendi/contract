@@ -1,0 +1,40 @@
+<div class="row-fluid">
+  <div class="span6">
+    <h4><%= t 'listing' %> <%= t 'sales_order' %> <%= @tax_type_name %>
+    <% if @split_tax_and_non_tax_transaction == 1 %>
+      (<%= link_to "#{t 'new'}", :controller => "sales_order_headers", :action => "new", :tt => params[:tt] %>)
+    <% else %>
+      (<%= link_to "#{t 'new'}", new_sales_order_header_path %>)
+    <% end %>
+    </h4><br>
+  </div>
+
+  <div class="span6" align="right">
+    <%= "#{t 'row_color_description'}" %><br>
+    <span class="status_1">&nbsp;<%= "#{t 'filter.posted'}" %>&nbsp;</span>
+     | 
+    <span class="status_5">&nbsp;<%= "#{t 'filter.void'}" %>&nbsp;</span>
+     | 
+    <span class="status_4">&nbsp;<%= "#{t 'filter.waiting_approval'}" %>&nbsp;</span>
+  </div>
+</div>
+
+
+<div class="accordion" id="accordion2">
+  <div class="accordion-group">
+    <div class="accordion-heading">
+      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
+        <h4><span class="pull-right"><i class="icon-chevron-down"></i></span><b>FILTER</b></h4>
+      </a>
+    </div>
+    <div id="collapseOne" class="accordion-body collapse">
+      <div class="accordion-inner">
+        <%= render 'form_filter' %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="sales_order_headers"><%= render "index_table" %></div>
+
+<div id="note_modal"></div>

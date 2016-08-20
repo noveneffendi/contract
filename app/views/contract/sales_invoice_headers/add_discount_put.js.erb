@@ -1,0 +1,9 @@
+$("#si_discount_<%= @sales_invoice_header.id %>").html("<%= delimiter(@sales_invoice_header.discount) %> %");
+$("#si_discount_amount_<%= @sales_invoice_header.id %>").html("<%= @sales_invoice_header.currency.try(:code) %> <%= delimiter(@sales_invoice_header.discount_amount) %>");
+$("#si_cash_disc_<%= @sales_invoice_header.id %>").html("<%= @sales_invoice_header.currency.try(:code) %> <%= delimiter(@sales_invoice_header.cash_disc) %> %");
+$("#si_tax_<%= @sales_invoice_header.id %>").html("<%= escape_javascript(check_box('sales_invoice_header', 'tax', options = {:index => @sales_invoice_header.id, :checked => @sales_invoice_header.tax, :disabled => true}, checked_value = true, unchecked_value = false)) %>");
+$("#si_tax_amount_<%= @sales_invoice_header.id %>").html("<%= @sales_invoice_header.currency.try(:code) %> <%= delimiter(@sales_invoice_header.tax_amount) %>");
+$("#si_total_amount_<%= @sales_invoice_header.id %>").html("<b><%= @sales_invoice_header.currency.try(:code) %> " + "<%= delimiter(@sales_invoice_header.total_amount) %>" + "</b>");
+
+$("#detail_table").html("<%= escape_javascript(render 'sales_invoice_details/table') %>");
+$("#form_discount_modal").dialog("close");

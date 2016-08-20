@@ -1,0 +1,27 @@
+<%= form_tag other_sales_invoice_headers_path(:tt => params[:tt].to_s), :method => "get", :id => "sales_invoice_headers_search", :class => "form-inline" do %>
+  <table>
+    <tr>
+      <td class="span2"><%= t 'period' %></td>
+      <td width="500"><%= select_date(Date.today, :order => [:month, :year]) %></td>
+      <td><%= t 'customer' %></td>
+      <td><%= select_tag "customer", options_from_collection_for_select(@customers, "id", "name"), :prompt => "#{t 'all'}", :id => "f_customer" %></td>
+      <td class="text-center span2"><%= button_tag :type => :submit, :class => "btn btn-info", :remote => true do %><i class="icon-filter icon-white"></i> <%= "#{t 'find'}" %><% end %></td>
+    </tr>
+    <tr>
+    	<td><%= t 'amount' %></td>
+    	<td>
+        <%= text_field_tag "start_amount", nil, :placeholder => "#{t 'start_amount'}", :style => "text-align:right" %>
+         - 
+        <%= text_field_tag "end_amount", nil, :placeholder => "#{t 'end_amount'}", :style => "width:198px;text-align:right" %>
+      </td>
+    	<td><%= t 'status' %></td>
+    	<td><%= select_tag "status", "<option selected='selected' value=''>#{t 'all'}</option><option value='0'>#{t 'filter.new'}</option><option value='1'>#{t 'filter.posted'}</option><option value='5'>#{t 'filter.void'}</option>".html_safe, :id => "f_status" %></td>
+      <td class="text-center"><%= link_to other_sales_invoice_headers_path, :title => "#{t 'reset'}", :class => "btn btn-primary" do %><i class="icon-repeat icon-white"></i> <%= "#{t 'reset'}" %><% end %></td>
+    </tr>
+    <tr>
+      <td><%= t 'currency' %></td>
+      <td><%= select_tag "currency", options_from_collection_for_select(Currency.order(:is_default), "id", "code"), :prompt => "#{t 'all'}" " #{t 'currency'}" %></td>
+    </tr>
+  </table>
+
+<% end %>

@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+	xmlns:o="urn:schemas-microsoft-com:office:offce"
+	xmlns:x="urn:schemas-microsoft-com:office:excel"
+	xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+	xmlns:html="http://www.w3.org/TR/REC-html40">
+	<Worksheet ss:Name="Sheet1">
+		<Table>
+			<Row>
+				<Cell><Data ss:Type="String"><%= t 'nomor' %></Data></Cell>
+				<Cell><Data ss:Type="String"><%= t 'sq_id' %></Data></Cell>
+				<Cell><Data ss:Type="String"><%= t 'dates' %></Data></Cell>
+				<Cell><Data ss:Type="String"><%= t 'customer' %></Data></Cell>
+				<Cell><Data ss:Type="String"><%= t 'amount' %></Data></Cell>
+				<Cell><Data ss:Type="String"><%= t 'disc' %></Data></Cell>
+				<Cell><Data ss:Type="String"><%= t 'disc_rp' %></Data></Cell>
+				<Cell><Data ss:Type="String"><%= t 'tax' %></Data></Cell>
+				<Cell><Data ss:Type="String"><%= t 'tax_amount' %></Data></Cell>
+				<Cell><Data ss:Type="String"><%= t 'total' %></Data></Cell>
+			</Row>
+			<%= @sales_quotations.each do |row| %>
+			<Row>
+				<Cell><Data ss:Type="String"><%= row[0] %></Data></Cell>
+				<Cell><Data ss:Type="String"><%= row[1] %></Data></Cell>
+				<Cell><Data ss:Type="String"><%= row[2] %></Data></Cell>
+				<Cell><Data ss:Type="String"><%= row[3] %></Data></Cell>
+				<Cell><Data ss:Type="String"><%= row[4] %></Data></Cell>
+				<Cell><Data ss:Type="String"><%= row[5] %></Data></Cell>
+				<Cell><Data ss:Type="String"><%= row[6] %></Data></Cell>
+				<Cell><Data ss:Type="String"><%= row[7] %></Data></Cell>
+				<Cell><Data ss:Type="String"><%= row[8] %></Data></Cell>
+				<Cell><Data ss:Type="String"><%= row[9] %></Data></Cell>
+			</Row>
+			<% end %>
+		</Table>
+	</Worksheet>
+</Workbook>
