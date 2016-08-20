@@ -1,7 +1,0 @@
-$("#si_discount_<%= @other_sales_invoice_header.id %>").html("<%= delimiter(@other_sales_invoice_header.discount) %> %");
-$("#si_discount_amount_<%= @other_sales_invoice_header.id %>").html("<%= delimiter(@other_sales_invoice_header.discount_amount) %>");
-$("#si_tax_<%= @other_sales_invoice_header.id %>").html("<%= escape_javascript(check_box('other_sales_invoice_header', 'tax', options = {:index => @other_sales_invoice_header.id, :checked => @other_sales_invoice_header.tax, :disabled => true}, checked_value = true, unchecked_value = false)) %>");
-$("#si_tax_amount_<%= @other_sales_invoice_header.id %>").html("<%= delimiter(@other_sales_invoice_header.tax_amount) %>");
-$("#si_total_amount_<%= @other_sales_invoice_header.id %>").html("<b>" + "<%= delimiter(@other_sales_invoice_header.total_amount) %>" + "</b>");
-
-$("#form_discount_modal").dialog("close");

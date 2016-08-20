@@ -1,8 +1,0 @@
-$("#sq_discount_<%= @sales_quotation_header.id %>").html("<%= @sales_quotation_header.discount.to_f %> %");
-$("#sq_discount_amount_<%= @sales_quotation_header.id %>").html("<%= @sales_quotation_header.currency.try(:code) %> <%= delimiter(@sales_quotation_header.discount_amount.to_f) %>");
-$("#sq_cash_disc_<%= @sales_quotation_header.id %>").html("<%= @sales_quotation_header.currency.try(:code) %> <%= @sales_quotation_header.cash_disc.to_f %> %")
-$("#sq_tax_<%= @sales_quotation_header.id %>").html("<%= escape_javascript(check_box('sales_quotation_header', 'tax', options = {:index => @sales_quotation_header.id, :checked => @sales_quotation_header.tax, :disabled => true}, checked_value = true, unchecked_value = false)) %>");
-$("#sq_tax_amount_<%= @sales_quotation_header.id %>").html("<%= @sales_quotation_header.currency.try(:code) %> <%= delimiter(@sales_quotation_header.tax_amount.to_f) %>");
-$("#sq_total_amount_<%= @sales_quotation_header.id %>").html("<b><%= @sales_quotation_header.currency.try(:code) %> " + "<%= delimiter(@sales_quotation_header.total_amount.to_f) %>" + "</b>");
-
-$("#form_discount_modal").dialog("close");
