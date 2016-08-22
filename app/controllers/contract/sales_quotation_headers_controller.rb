@@ -6,7 +6,7 @@ module Contract
     include Authorization
     include ApplicationHelper
     include ActionView::Helpers::NumberHelper
-    # before_filter(:except => [:so_id_by_customer, :add_discount, :add_discount_put, :view_note, :approval_notes]) { |c| c.authorize_access c.controller_name, params[:tt] }
+    before_filter(:except => [:sq_id_by_customer, :add_discount, :add_discount_put, :view_note, :approval_notes]) { |c| c.authorize_access c.controller_name, params[:tt] }
     before_filter :set_sales_quotation_header, only: [:show, :edit, :update, :status_post, :status_void, :add_discount, :add_discount_put, :show_post_void, :view_note, :approval_notes, :approval_status, :close, :revise]
     before_filter :get_currencies, only: [:new, :edit, :status_post, :status_void, :revise]
     respond_to :js, :only => [:view_note, :sq_id_by_customer, :add_discount, :add_discount_put, :approval_notes]

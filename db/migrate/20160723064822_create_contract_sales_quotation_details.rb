@@ -11,6 +11,6 @@ class CreateContractSalesQuotationDetails < ActiveRecord::Migration
       t.timestamps
     end
     add_index :contract_sales_quotation_details, :unit_of_measure_id
-    add_index :contract_sales_quotation_details, :sales_quotation_header_id
+    add_index :contract_sales_quotation_details, :sales_quotation_header_id, :name => 'index_csq_details_on_csq_headers'
   end
 end

@@ -13,6 +13,6 @@ class CreateContractSalesQuotationCosts < ActiveRecord::Migration
       t.timestamps
     end
     add_index :contract_sales_quotation_costs, :unit_of_measure_id
-    add_index :contract_sales_quotation_costs, :sales_quotation_header_id
+    add_index :contract_sales_quotation_costs, :sales_quotation_header_id, :name => 'index_csq_costs_on_csq_headers'
   end
 end

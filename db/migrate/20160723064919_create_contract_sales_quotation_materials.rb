@@ -16,6 +16,6 @@ class CreateContractSalesQuotationMaterials < ActiveRecord::Migration
     end
     add_index :contract_sales_quotation_materials, :product_id
     add_index :contract_sales_quotation_materials, :unit_of_measure_id
-    add_index :contract_sales_quotation_materials, :sales_quotation_detail_id
+    add_index :contract_sales_quotation_materials, :sales_quotation_detail_id, :name => 'index_csq_materials_on_csq_details'
   end
 end

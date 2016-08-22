@@ -12,4 +12,5 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require bootstrap-switch
 //= require_tree 'contract'

@@ -1,8 +1,0 @@
-$("#so_discount_<%= @sales_order_header.id %>").html("<%= @sales_order_header.discount.to_f %> %");
-$("#so_discount_amount_<%= @sales_order_header.id %>").html("<%= @sales_order_header.currency.try(:code) %> <%= delimiter(@sales_order_header.discount_amount.to_f) %>");
-$("#so_cash_disc_<%= @sales_order_header.id %>").html("<%= @sales_order_header.currency.try(:code) %> <%= @sales_order_header.cash_disc.to_f %> %")
-$("#so_tax_<%= @sales_order_header.id %>").html("<%= escape_javascript(check_box('sales_order_header', 'tax', options = {:index => @sales_order_header.id, :checked => @sales_order_header.tax, :disabled => true}, checked_value = true, unchecked_value = false)) %>");
-$("#so_tax_amount_<%= @sales_order_header.id %>").html("<%= @sales_order_header.currency.try(:code) %> <%= delimiter(@sales_order_header.tax_amount.to_f) %>");
-$("#so_total_amount_<%= @sales_order_header.id %>").html("<b><%= @sales_order_header.currency.try(:code) %> " + "<%= delimiter(@sales_order_header.total_amount.to_f) %>" + "</b>");
-
-$("#form_discount_modal").dialog("close");
