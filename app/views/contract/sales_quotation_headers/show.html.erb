@@ -47,7 +47,8 @@
     <% if @sales_quotation_header.status == 0 %>
     <%= link_to "#{t 'edit'}", edit_sales_quotation_header_path(@sales_quotation_header, params.except(:action, :controller)) if @sales_quotation_header.close==false %>
      | 
-     <% end %>
+    <% end %>
+    <% if @sales_quotation_header.status == 1 %><%= link_to "#{t 'pdf'}", sales_quotation_header_path(@sales_quotation_header, :tt => params[:tt], :format => :pdf) %> | <% end %>
     <%= link_to "#{t 'back'}", sales_quotation_headers_path(params.except(:action, :controller, :id)) %>
   </div>
 </div>

@@ -33,7 +33,7 @@
       </u>
     </td>
     <td style="text-align:center;">
-      <% if sales_quotation_header.status==1 %>
+      <% if sales_quotation_header.status.to_i==1 %>
         <%= link_to sales_quotation_header_path(sales_quotation_header, params.except(:action, :controller)), :title => "#{t 'show'}", :class => "btn btn-mini" do %><i class="icon-search"></i><% end %>
         | 
         <%= link_to status_void_sales_quotation_header_path(sales_quotation_header.id, :tt => params[:tt]), data: { confirm: "#{t 'confirm'}" }, :title => "#{t 'void'}", :class => "btn btn-mini btn-danger" do %><i class="icon-remove icon-white"></i><% end %>
@@ -45,7 +45,7 @@
         |
         <%= link_to sales_quotation_header_path(sales_quotation_header, :tt => params[:tt].to_s, :format => "pdf"), :title => "#{t 'pdf'}", :class => "btn btn-mini btn-info" do %> <i class="icon-print icon-white"></i><% end %>
           <% end %>
-      <% elsif sales_quotation_header.status==5 %>
+      <% elsif sales_quotation_header.status.to_i==5 %>
           <%= link_to sales_quotation_header_path(sales_quotation_header, params.except(:action, :controller)), :title => "#{t 'show'}", :class => "btn btn-mini" do %><i class="icon-search"></i><% end %>
       <% else %>
         <%= link_to sales_quotation_header_path(sales_quotation_header, params.except(:action, :controller)), :title => "#{t 'add'}", :class => "btn btn-mini" do %><i class="icon-list"></i><% end %>

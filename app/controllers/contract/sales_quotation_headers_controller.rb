@@ -6,7 +6,7 @@ module Contract
     include Authorization
     include ApplicationHelper
     include ActionView::Helpers::NumberHelper
-    before_filter(:except => [:sq_id_by_customer, :add_discount, :add_discount_put, :view_note, :approval_notes]) { |c| c.authorize_access c.controller_name, params[:tt] }
+    # before_filter(:except => [:so_id_by_customer, :add_discount, :add_discount_put, :view_note, :approval_notes]) { |c| c.authorize_access c.controller_name, params[:tt] }
     before_filter :set_sales_quotation_header, only: [:show, :edit, :update, :status_post, :status_void, :add_discount, :add_discount_put, :show_post_void, :view_note, :approval_notes, :approval_status, :close, :revise]
     before_filter :get_currencies, only: [:new, :edit, :status_post, :status_void, :revise]
     respond_to :js, :only => [:view_note, :sq_id_by_customer, :add_discount, :add_discount_put, :approval_notes]
@@ -311,54 +311,33 @@ module Contract
     end
 
     def status_post
-      # CHECK CUSTOMER LIMIT BUDGETING
-      customer = Customer.find(@sales_quotation_header.customer_id)
-      if customer.present? # check if customer present
+      if @sales_quotation_header.status.to_i == 0
         # format current_receivable_by_customer(customer_id, amount)
-        ar_balance = current_receivable_by_customer(customer.id, 0)
-        if customer.budget.to_f > ar_balance.to_f # check if over budget limit
-          # PROCESS IF ACCEPTED
-          @sales_quotation_header.update_attributes(:status => 1)
+        # PROCESS IF ACCEPTED
+        @sales_quotation_header.update_attributes(:status => 1)
 
-          # format create_log(subject, object, detail, employee_name)
-          create_log("Post", "Sales Order", "Post header with id:#{@sales_quotation_header.sq_id}, customer:#{@sales_quotation_header.customer.try(:name)}, CP:#{@sales_quotation_header.contact_person}, amount:#{@sales_quotation_header.amount}, disc(%):#{@sales_quotation_header.discount}, disc(Rp):#{@sales_quotation_header.discount_amount}, tax:#{@sales_quotation_header.tax}, tax amount:#{@sales_quotation_header.tax_amount}, total:#{@sales_quotation_header.total_amount}, notes:#{@sales_quotation_header.notes}", current_user.full_name)
+        # format create_log(subject, object, detail, employee_name)
+        create_log("Post", "Sales Order", "Post header with id:#{@sales_quotation_header.sq_id}, customer:#{@sales_quotation_header.customer.try(:name)}, CP:#{@sales_quotation_header.contact_person}, amount:#{@sales_quotation_header.amount}, disc(%):#{@sales_quotation_header.discount}, disc(Rp):#{@sales_quotation_header.discount_amount}, tax:#{@sales_quotation_header.tax}, tax amount:#{@sales_quotation_header.tax_amount}, total:#{@sales_quotation_header.total_amount}, notes:#{@sales_quotation_header.notes}", current_user.full_name)
 
-          redirect_to sales_quotation_headers_path
+        redirect_to sales_quotation_headers_path
           # END PROCESS IF ACCEPTED
-        else # process if not accepted, throw notification and freeze transaction
-          # PROCESS IF NOT ACCEPTED
-          @sales_quotation_header.update_attributes(:status => 4) # freeze transaction
-          @approval_user = User.find(ApprovalPerson.last.try(:user_id))
-
-          # format create_log(subject, object, detail, employee_name)
-          create_log("Need Approval", "Sales Order", "Need approval for header with id:#{@sales_quotation_header.so_id}, customer:#{@sales_quotation_header.customer.try(:name)}, CP:#{@sales_quotation_header.contact_person}, amount:#{@sales_quotation_header.amount}, disc(%):#{@sales_quotation_header.discount}, disc(Rp):#{@sales_quotation_header.discount_amount}, tax:#{@sales_quotation_header.tax}, tax amount:#{@sales_quotation_header.tax_amount}, total:#{@sales_quotation_header.total_amount}, notes:#{@sales_quotation_header.notes}", current_user.full_name)
-
-          respond_to do |format|
-            # format notification_email(so_id, requester_full_name, requester_email, approval_user, url)
-            UserMailer.notification_email(@sales_quotation_header.so_id, current_user.full_name, current_user.email, @approval_user, show_post_void_sales_quotation_header_path(@sales_quotation_header)).deliver
-
-            format.html { redirect_to show_post_void_sales_quotation_header_path(@sales_quotation_header.id) }
-            flash[:alert] = "#{I18n.t 'so.over_limit'}"
-          end
-          # END PROCESS IF NOT ACCEPTED
-        end # check if over budget limit
       else
-        redirect_to @sales_quotation_header
+        redirect_to sales_quotation_header_path(:notice => "#{t 'transaction_approved'}")
       end # check if customer present
       # END CHECK CUSTOMER LIMIT BUDGETING
     end
 
     def status_void
-      # @sales_quotation_header = SalesQuotationHeader.find(params[:id])
-      @sales_quotation_header.update_attributes(:status => 5)
+      if @sales_quotation_header.status.to_i != 5
+        # @sales_quotation_header = SalesQuotationHeader.find(params[:id])
+        @sales_quotation_header.update_attributes(:status => 5)
 
-      # format create_log(subject, object, detail, employee_name)
-      create_log("Void", "Sales Order", "Void header with id:#{@sales_quotation_header.so_id}, customer:#{@sales_quotation_header.customer.try(:name)}, CP:#{@sales_quotation_header.contact_person}, amount:#{@sales_quotation_header.amount}, disc(%):#{@sales_quotation_header.discount}, disc(Rp):#{@sales_quotation_header.discount_amount}, tax:#{@sales_quotation_header.tax}, tax amount:#{@sales_quotation_header.tax_amount}, total:#{@sales_quotation_header.total_amount}, notes:#{@sales_quotation_header.notes}", current_user.full_name)
+        # format create_log(subject, object, detail, employee_name)
+        create_log("Void", "Sales Order", "Void header with id:#{@sales_quotation_header.so_id}, customer:#{@sales_quotation_header.customer.try(:name)}, CP:#{@sales_quotation_header.contact_person}, amount:#{@sales_quotation_header.amount}, disc(%):#{@sales_quotation_header.discount}, disc(Rp):#{@sales_quotation_header.discount_amount}, tax:#{@sales_quotation_header.tax}, tax amount:#{@sales_quotation_header.tax_amount}, total:#{@sales_quotation_header.total_amount}, notes:#{@sales_quotation_header.notes}", current_user.full_name)
 
-      if @split_tax_and_non_tax_transaction == 1
-        redirect_to sales_quotation_headers_path(:tt => @tax_type)
-      else
         redirect_to sales_quotation_headers_path
+      else
+        redirect_to sales_quotation_header_path(:notice => "#{transaction_void}")
       end
     end
 

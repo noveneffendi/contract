@@ -2,7 +2,9 @@ PATH
   remote: .
   specs:
     contract (0.0.1)
-      rails (~> 3.2.22.2)
+      bootstrap-switch-rails
+      jquery-rails
+      rails (~> 3.2.12)
 
 GEM
   remote: https://rubygems.org/
@@ -35,6 +37,7 @@ GEM
       i18n (~> 0.6, >= 0.6.4)
       multi_json (~> 1.0)
     arel (3.0.3)
+    bootstrap-switch-rails (3.3.3)
     builder (3.0.4)
     erubis (2.7.0)
     hike (1.2.3)
