@@ -54,36 +54,44 @@ pdf.table(details, :width => 540, :header => true, :cell_style => { :font => "Ti
 	column(0).filter { |cell| cell.content == "#{I18n.t 'product'}" }.background_color = "C0C0C0"
 	column(0).filter { |cell| cell.content == "#{I18n.t 'product'}" }.borders = [:bottom]
 	column(0).filter { |cell| cell.content == "#{I18n.t 'product'}" }.font_style = :bold
+	column(0).filter { |cell| cell.content == "#{I18n.t 'product'}" }.width = 210
 	
 	column(1).filter { |cell| cell.content == "#{I18n.t 'quantity'}" }.background_color = "C0C0C0"
 	column(1).filter { |cell| cell.content == "#{I18n.t 'quantity'}" }.borders = [:bottom]
 	column(1).filter { |cell| cell.content == "#{I18n.t 'quantity'}" }.font_style = :bold
+	column(1).filter { |cell| cell.content == "#{I18n.t 'quantity'}" }.width = 60
 	
 	column(2).filter { |cell| cell.content == "#{I18n.t 'unit'}" }.background_color = "C0C0C0"
 	column(2).filter { |cell| cell.content == "#{I18n.t 'unit'}" }.borders = [:bottom]
 	column(2).filter { |cell| cell.content == "#{I18n.t 'unit'}" }.font_style = :bold
+	column(2).filter { |cell| cell.content == "#{I18n.t 'unit'}" }.width = 40
 	
 	column(3).filter { |cell| cell.content == "#{I18n.t 'price'}" }.background_color = "C0C0C0"
 	column(3).filter { |cell| cell.content == "#{I18n.t 'price'}" }.borders = [:bottom]
 	column(3).filter { |cell| cell.content == "#{I18n.t 'price'}" }.font_style = :bold
+	column(3).filter { |cell| cell.content == "#{I18n.t 'price'}" }.width = 60
 	
 	column(4).filter { |cell| cell.content == "#{I18n.t 'disc_rp'}" }.background_color = "C0C0C0"
 	column(4).filter { |cell| cell.content == "#{I18n.t 'disc_rp'}" }.borders = [:bottom]
 	column(4).filter { |cell| cell.content == "#{I18n.t 'disc_rp'}" }.font_style = :bold
+	column(4).filter { |cell| cell.content == "#{I18n.t 'disc_rp'}" }.width = 40
 	
 	column(5).filter { |cell| cell.content == "#{I18n.t 'disc'}" }.background_color = "C0C0C0"
 	column(5).filter { |cell| cell.content == "#{I18n.t 'disc'}" }.borders = [:bottom]
 	column(5).filter { |cell| cell.content == "#{I18n.t 'disc'}" }.font_style = :bold
+	column(5).filter { |cell| cell.content == "#{I18n.t 'disc'}" }.width = 55
 	
 	column(6).filter { |cell| cell.content == "#{I18n.t 'total'}" }.background_color = "C0C0C0"
 	column(6).filter { |cell| cell.content == "#{I18n.t 'total'}" }.borders = [:bottom]
 	column(6).filter { |cell| cell.content == "#{I18n.t 'total'}" }.font_style = :bold
+	column(6).filter { |cell| cell.content == "#{I18n.t 'total'}" }.width = 75
 
 	columns(1..6).align = :right
 	columns(2).align = :center
 
 	column(0).filter { |cell| cell.content == "#{I18n.t 'total'}" }.borders = [:top]
 	column(0).filter { |cell| cell.content == "#{I18n.t 'total'}" }.font_style = :bold
+	column(6).filter { |cell| cell.content.to_i > 0 }.borders = [:top]
 end
 
 pdf.move_down(10)

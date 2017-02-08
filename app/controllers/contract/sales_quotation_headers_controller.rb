@@ -46,7 +46,8 @@ module Contract
     # GET /sales_quotation_headers/1.json
     def show
       @sales_quotation_categories = @sales_quotation_header.sales_quotation_details
-                                .select("DISTINCT(contract_sales_quotation_details.category)").order(:category)
+                                .select("DISTINCT contract_sales_quotation_details.category, contract_sales_quotation_details.created_at")
+                                .order(:created_at)
                                 
       @sales_quotation_details = @sales_quotation_header.sales_quotation_details.order(:created_at)
       
